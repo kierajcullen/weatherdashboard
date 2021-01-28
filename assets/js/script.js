@@ -1,5 +1,4 @@
 // Declare Variables
-var citySearch;
 var APIkey = "d214e05ff0a5e0aef758d2675056c06c";
 var weatherAPI = "https://api.openweathermap.org/data/2.5/weather?";
 var uviAPI = "https://api.openweathermap.org/data/2.5/uvi?lat=";
@@ -9,19 +8,19 @@ var getWeatherIcon = "http://openweathermap.org/img/wn/";
 // var queryURL = ``;
 
 var searchHistoryArr = [];
-
+// console.log("hi);
+// I just realized I made my HTML tags in JS format... I may fix this, I may just note to never do that in the future
 // search for location
 function searchLocation() {
-  console.log("hi");
   //.trim takes away white space
   var citySearch = $("#searchInput").val().trim();
   if (citySearch === "") {
     return;
   }
-  $("#searchInput").val("");
   getWeather(citySearch);
   getForecast(citySearch);
   console.log(citySearch);
+  createHistory(citySearch);
 }
 
 //call weather when the city is searched
@@ -62,3 +61,53 @@ $("#searchButton").on("click", searchLocation);
 
 //use lon and lat to get uv data somehow...
 //loop through and objects, i+=7,
+for (var j = 0; j < 5; j++) {}
+$("#weather-container").show();
+
+// UV index
+// set item in local storage then get item
+function displayHistory() {
+  var getLocalSearchHistory = localStorage.getItem("searchHistory");
+  var localSearchHistory = JSON.parse(getLocalSearchHistory);
+
+  if (getLocalSearchHistory === null) {
+    createHistory();
+    getLocalSearchHistory = localStorage.getItem("searchHistory");
+    localSearchHistory = JSON.parse(getLocalSearchHistory);
+  }
+
+  for (var i = 0; i < localSearchHistory.length; i++) {
+    // add a list element to display history, local storage
+    var historyInfo = $("<li>");
+    historyInfo.addClass("list-group-item");
+    historyInfo.text(localSearchHistory[i].city);
+    //prepend or append?
+    $("#search-history").prepend(historyInfo);
+    console.log(historyInfo);
+    $("#search-history-container").show();
+  }
+  return (searchHistoryArray = localSearchHistory);
+}
+
+// Created array in variable section
+// Create History
+function createHistory() {
+  // initialize array, store
+  searchHistoryArray.length = 0;
+  localStorage.setItem("searchHistory", JSON.stringify(searchHistoryArray));
+}
+
+function clearHistory() {
+  $("#clear-button").on("click", function () {
+    $("#search-history").empty();
+    localStorage.removeItem("searchHistory");
+    createHistory();
+  });
+}
+
+function clickHistory() {
+  $("#search-history").on("click", "li", function () {
+    var cityNameHistory = $(this).text();
+    getWeather(cityNameHistory);
+  });
+}
