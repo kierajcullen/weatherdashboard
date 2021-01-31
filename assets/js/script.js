@@ -7,7 +7,7 @@ var APIkey = "d214e05ff0a5e0aef758d2675056c06c";
 var getWeatherIcon = "http://openweathermap.org/img/wn/";
 
 var searchHistoryArray = [];
-var forecastHistoryArray = {};
+// var forecastHistoryArray = {};
 //when they search a city, add to the
 // console.log("hi);
 // I just realized I made my HTML tags in JS format... I may fix this, I may just note to never do that in the future
@@ -40,6 +40,16 @@ function getWeather(search) {
     console.log(response);
     $("#current-city").text(response.name);
     $("#search-history").text(response.name);
+    $("#temperature").html(
+      "<b>Temperature: </b>" + "" + (response.main.feels_like + "°F")
+    );
+    $("#humidity").html(
+      "<b>Humidity: </b>" + "" + (response.main.humidity + "%")
+    );
+    var iconurl =
+      "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
+    $("#weather-image").attr("src", iconurl);
+    // console.log(response.weather[0]);
   });
 }
 
@@ -54,12 +64,7 @@ function getForecast(search) {
     //let's do this
   }).then(function (response) {
     console.log(response);
-    $("#temperature").html(
-      "<b>Temperature: </b>" + "" + (response.list[3].main.feels_like + "°F")
-    );
-    $("#humidity").html(
-      "<b>Humidity: </b>" + "" + (response.list[3].main.humidity + "%")
-    );
+
     console.log(response.list[3].main.humidity);
     // $("#date1").text(response.list[3].main);
     // var results = response;
@@ -157,7 +162,6 @@ function clickHistory() {
   });
 }
 
-// calling images
 // trim... again what is the whitespace all about, works without trim... even though there is white space
 // what the heck am i targeting? is it right
 // for loop for every 4th index (index 3), call 12:00 for each day and display this
