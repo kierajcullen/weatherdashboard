@@ -17,7 +17,7 @@ body {
 .row {
   font-weight: bold;
 }
-.weatherDashboard {
+.weather-dashboard {
   /* justify-content: center; */
   text-align: center;
   font-weight: bold;
