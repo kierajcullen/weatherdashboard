@@ -6,7 +6,6 @@ html {
 body {
   margin-bottom: 60px;
 }
-
 .sticky-footer {
   position: absolute;
   bottom: 0;
@@ -30,4 +29,12 @@ body {
 }
 p {
   font-size: large;
+}
+#current-date {
+  padding: inherit;
+  /* margin-inline: auto; */
+}
+.row {
+  /* hard override */
+  margin-left: 0 !important;
 }
