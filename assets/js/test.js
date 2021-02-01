@@ -54,8 +54,6 @@ function getWeather(search) {
     $("#current-img").attr("src", iconurl);
 
     //uv index
-    var lat = response.coord.lat;
-    var lon = response.coord.lon;
 
     // get the variables back and do an api call to get lat/long... store in variables
     // api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
@@ -87,7 +85,18 @@ function getWeather(search) {
       }
     });
 
-    $("#weather-container").show();
+    function getUVI(search){
+        var queryURL = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}`;
+        $.ajax({
+            url: queryURL,
+            method: "GET",
+            //let's do this
+          }).then(function (response){
+            console.log(response);
+          }
+        }
+    }
+          $("#weather-container").show();
 
     // UV index
     // use another .then with an api call

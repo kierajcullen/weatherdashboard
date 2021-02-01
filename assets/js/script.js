@@ -32,10 +32,6 @@ function searchLocation(event) {
 
 //call weather when the city is searched
 function getWeather(search) {
-  // only use .empty if you are creating elements
-  // $("#current-weather-container").empty();
-  // event.preventDefault();
-  // var queryURL = weatherAPI + "q=" + search + units + APIkey;
   var queryUrl = `https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=${APIkey}&units=imperial`;
   // get the variables back and do an api call to get lat/long... store in variables
   //  api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
@@ -47,7 +43,7 @@ function getWeather(search) {
     console.log(response);
     var date = new Date(response.dt * 1000).toLocaleDateString("en-US");
     console.log(response.dt_txt);
-    $("#current-date").html(date);
+    $("#current-date").text(date);
     $("#currentForecast").show();
     $(".card").show();
     $("#current-city").text(response.name);
@@ -66,14 +62,43 @@ function getWeather(search) {
       "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
 
     $("#current-img").attr("src", iconurl);
-
-    //uv index
-    var lat = response.coord.lat;
-    var lon = response.coord.lon;
     // clear this out everytime
     // $("#weather-image-container").attr("src", iconurl);
     // console.log(response.weather[0]);
     //five day forecast
+    var lat = response.coord.lat;
+    console.log(lat);
+    var lon = response.coord.lon;
+    console.log(lon);
+    getUVI(lat, lon);
+  });
+}
+
+function getUVI() {
+  var queryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${APIkey}`;
+  $.ajax({
+    url: queryURL,
+    method: "GET",
+    //let's do this
+  }).then(function (response) {
+    console.log(response);
+    //uv index
+    // color coordinate UV index
+    // var uvi = ....value;
+    $("#uv-index").html(
+      "<b>UV Index: </b>" + '<span id="uv-color">' + uvi + "</span>"
+    );
+    if (uvi < 3) {
+      $("#uv-color").css("background-color", "green");
+    } else if (uvi < 6) {
+      $("#uv-color").css("background-color", "yellow");
+    } else if (uvi < 8) {
+      $("#uv-color").css("background-color", "orange");
+    } else if (uvi < 11) {
+      $("#uv-color").css("background-color", "red");
+    } else {
+      $("#uv-color").css("background-color", "white");
+    }
   });
 }
 
@@ -88,11 +113,6 @@ function getForecast(search) {
   }).then(function (response) {
     console.log(response);
     $("#five-day").empty();
-    // var currentDate = $("#current-date");
-    // var currentDay = new Date();
-    // var month = months[new Date().getMonth()];
-    // var date = currentDay.getDate();
-    // currentDate.text(day + ", " + month + " " + date + "st");
 
     for (var i = 5; i < 40; i += 8) {
       // $("#fivedayForecast").show();
@@ -163,8 +183,3 @@ function clickHistory(event) {
   }
 }
 $("#search-history").on("click", clickHistory);
-
-// trim... again what is the whitespace all about, works without trim... even though there is white space
-// what the heck am i targeting? is it right
-// for loop for every 4th index (index 3), call 12:00 for each day and display this
-// local storage issue... not displaying when the page reloads
