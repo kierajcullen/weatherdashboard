@@ -74,7 +74,7 @@ function getWeather(search) {
   });
 }
 
-function getUVI() {
+function getUVI(lat, lon) {
   var queryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${APIkey}`;
   $.ajax({
     url: queryURL,
@@ -86,8 +86,12 @@ function getUVI() {
     // color coordinate UV index
     // var uvi = ....value;
     $("#uv-index").html(
-      "<b>UV Index: </b>" + '<span id="uv-color">' + uvi + "</span>"
+      "<b>UV Index: </b>" +
+        '<span id="uv-color">' +
+        response.current.uvi +
+        "</span>"
     );
+    var uvi = response.current.uvi;
     if (uvi < 3) {
       $("#uv-color").css("background-color", "green");
     } else if (uvi < 6) {
@@ -128,11 +132,14 @@ function getForecast(search) {
       console.log(forecastDate);
       console.log(forecastTemp);
       console.log(forecastHumidity);
-      // var fivedayicon =
-      //   "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png";
 
-      // $("#weatherImage1").attr("src", fivedayicon);
-      // console.log(response.weather[0].icon);
+      var fivedayicon =
+        "https://openweathermap.org/img/w/" +
+        response.list[i].weather[0].icon +
+        ".png";
+      console.log(fivedayicon);
+      console.log(response.list[i].weather[0].icon);
+
       var dayDiv = $("<div>").addClass("col-lg mx-1");
       dayDiv.html(`
       <div class="card text-white bg-primary" id="day1">
@@ -140,14 +147,14 @@ function getForecast(search) {
             <h5 class="card-title" id="date1">${forecastDate}</h5>
             <div class="current-temp"><b>Temp: </b> ${forecastTemp}°F
             <div class="current-humidity"><b>Humidity: </b> ${forecastHumidity}%
-              <img alt="day1-weatherImage" id="weatherImage1"/>
+              <img alt="day1-weatherImage" id="weatherImage${i}" src="${fivedayicon}"/>
             </div>
             <p class="card-text" id="temp1"></p>
             <p class="card-text" id="humidity1"></p>
           </div>
         </div>
       `);
-
+      // $(`#weatherImage${i}`).attr("src", fivedayicon);
       $("#five-day").append(dayDiv);
     }
     // console.log(response.list[3].main.humidity);
