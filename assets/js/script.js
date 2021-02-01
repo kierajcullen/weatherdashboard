@@ -12,7 +12,7 @@ function init() {
   $("#cityName-container").hide();
   // $("#fivedayForecast").hide();
   $("#currentForecast").hide();
-  $(".card").hide();
+  // $(".card").hide();
   $("#clearButton").hide();
 }
 // setTimeout(displayHistory(), 2000);
@@ -92,6 +92,12 @@ function getForecast(search) {
   }).then(function (response) {
     console.log(response);
     $("#five-day").empty();
+    // var currentDate = $("#current-date");
+    // var currentDay = new Date();
+    // var month = months[new Date().getMonth()];
+    // var date = currentDay.getDate();
+    // currentDate.text(day + ", " + month + " " + date + "st");
+
     for (var i = 5; i < 40; i += 8) {
       // $("#fivedayForecast").show();
       // var forecastObj = {};
