@@ -163,12 +163,10 @@ function getForecast(search) {
 
 $("#searchButton").on("click", searchLocation);
 
-//use lon and lat to get uv data somehow...
 //loop through and objects, i+=7,
 for (var j = 0; j < 5; j++) {}
 $("#weather-container").show();
 
-// UV index
 // use another .then with an api call
 // set item in local storage then get item
 function displayHistory() {
@@ -185,6 +183,7 @@ function clickHistory(event) {
   if (event.target.matches("p")) {
     var cityNameHistory = $(event.target).text();
     getWeather(cityNameHistory);
+    getForecast(cityNameHistory);
   } else {
     return;
   }

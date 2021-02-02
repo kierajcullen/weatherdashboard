@@ -6,6 +6,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+nav {
+  text-align: center;
+}
 .sticky-footer {
   position: absolute;
   bottom: 0;
@@ -18,7 +21,6 @@ body {
 }
 .weather-dashboard {
   /* justify-content: center; */
-  text-align: center;
   font-weight: bold;
   padding: 10px;
 }
@@ -32,9 +34,21 @@ p {
 }
 #current-date {
   padding: inherit;
-  /* margin-inline: auto; */
+  text-align: right;
+  margin-left: 20px;
 }
 .row {
   /* hard override */
   margin-left: 0 !important;
+}
+h6 {
+  font-size: large;
+}
+#current-city {
+  text-align: center;
+  margin: 0;
+  margin-top: auto;
+}
+.description {
+  font-size: medium;
 }
