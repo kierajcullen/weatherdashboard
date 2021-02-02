@@ -11,4 +11,4 @@ https://github.com/kierajcullen/weatherdashboard
 https://kierajcullen.github.io/weatherdashboard/
 
 # Webpage
-![](img/weatherdashboard.mp4)
+![](img/weatherdashboard.gif)
