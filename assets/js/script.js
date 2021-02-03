@@ -1,9 +1,5 @@
 // Declare Variables
 var APIkey = "d214e05ff0a5e0aef758d2675056c06c";
-// var weatherAPI = "https://api.openweathermap.org/data/2.5/weather?";
-// var uviAPI = "https://api.openweathermap.org/data/2.5/uvi?lat=";
-// var forecastAPI = "https://api.openweathermap.org/data/2.5/forecast?q=";
-// var geoAPI = navigator.geolocation to give access to a location, ask elena if I am implementing this correctly or if this is even necessary;
 var getWeatherIcon = "http://openweathermap.org/img/wn/";
 
 // var searchHistoryArray = [];
@@ -92,6 +88,7 @@ function getUVI(lat, lon) {
         "</span>"
     );
     var uvi = response.current.uvi;
+    console.log(uvi);
     if (uvi < 3) {
       $("#uv-color").css("background-color", "green");
     } else if (uvi < 6) {
