@@ -1,6 +1,6 @@
 # Weather Dashboard
 
-The weather dashboard features HTML, CSS and Javscript. Clients can input a city and the current as well as five day forecast will appear. The history of their search will appear on the left. 
+The weather dashboard features HTML, CSS and Javscript. Clients can input a city and the current as well as five day forecast will appear. The history of their search will appear on the left and can be clicked to redisplay the weather for that city.
 
 # GitHub Repository
 
